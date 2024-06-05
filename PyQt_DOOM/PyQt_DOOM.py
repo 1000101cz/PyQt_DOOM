@@ -72,6 +72,13 @@ class SingleScore:
         save_json(the_dict, fpath)
         self.fpath = fpath
 
+    def level(self) -> int:
+        lvl = 1
+        for a in self.kill_list:
+            if a == 'Level Finished':
+                lvl += 1
+        return lvl
+
 
 class AllScores:
     def __init__(self, folder=pl.Path(os.getenv('LOCALAPPDATA')) / 'PyQt_DOOM' / 'scores'):
@@ -162,7 +169,10 @@ class Game:
         self.weapon = None
         self.sound = None
         self.pathfinding = None
-        self.screen = pg.display.set_mode(RES)
+        if settings.fullscreen:
+            self.screen = pg.display.set_mode(RES, pg.FULLSCREEN)
+        else:
+            self.screen = pg.display.set_mode(RES)
         pg.event.set_grab(True)
         self.clock = pg.time.Clock()
         self.delta_time = 1
@@ -304,7 +314,8 @@ class MainModule:
             game_time_text = f"{gt[:4]} {gt[4:6]} {gt[6:8]} - {gt[8:10]}:{gt[10:12]}"
             self.widget.tableWidget.insertRow(row_position)
             self.widget.tableWidget.setItem(row_position, 0, QTableWidgetItem(f"{score.score}"))
-            self.widget.tableWidget.setItem(row_position, 1, QTableWidgetItem(game_time_text))
+            self.widget.tableWidget.setItem(row_position, 1, QTableWidgetItem(f"{score.level()}"))
+            self.widget.tableWidget.setItem(row_position, 2, QTableWidgetItem(game_time_text))
 
     def init_gui(self):
         pixmap = QPixmap(str(pl.Path(__file__).parent / 'logo_menu.png'))

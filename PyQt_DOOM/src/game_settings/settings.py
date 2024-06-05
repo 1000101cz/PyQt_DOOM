@@ -37,6 +37,8 @@ class GameSettings:
         self.volume_player = 1.0
         self.volume_weapon = 1.0
 
+        self.fullscreen = False
+
         if fpath.is_file():
             self.load(fpath)
         else:
@@ -50,7 +52,9 @@ class GameSettings:
                 'volume_music': self.volume_music,
                 'volume_enemies': self.volume_enemies,
                 'volume_player': self.volume_player,
-                'volume_weapon': self.volume_weapon
+                'volume_weapon': self.volume_weapon,
+
+                'fullscreen': self.fullscreen
             }
 
     def save(self, fpath: pl.Path = pl.Path(os.getenv('LOCALAPPDATA')) / 'PyQt_DOOM' / 'settings.json'):
@@ -66,6 +70,8 @@ class GameSettings:
         self.volume_enemies = the_dict['volume_enemies']
         self.volume_player = the_dict['volume_player']
         self.volume_weapon = the_dict['volume_weapon']
+
+        self.fullscreen = the_dict['fullscreen']
 
 
 class _SettingsDialog(QDialog, _help_dialog):
@@ -107,6 +113,8 @@ class _SettingsDialog(QDialog, _help_dialog):
         self.horizontalSlider_player.setValue(int(self.settings.volume_player * 100))
         self.horizontalSlider_enemies.setValue(int(self.settings.volume_enemies * 100))
 
+        self.checkBox_fullscreen.setChecked(self.settings.fullscreen)
+
     def _test_sound_music(self):
         self._update_settings()
         sound = Sound(None, self.settings)
@@ -142,6 +150,8 @@ class _SettingsDialog(QDialog, _help_dialog):
         self.settings.volume_weapon = self.getSliderValue(self.horizontalSlider_weapon)
         self.settings.volume_player = self.getSliderValue(self.horizontalSlider_player)
         self.settings.volume_music = self.getSliderValue(self.horizontalSlider_music)
+
+        self.settings.fullscreen = self.checkBox_fullscreen.isChecked()
 
     def _ok_clicked(self):
         self._update_settings()
