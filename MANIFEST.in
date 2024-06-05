@@ -54,7 +54,7 @@ include PyQt_DOOM/resources_alt/textures/digits/*.png
 
 include PyQt_DOOM/src/game_settings/*.ui
 
-include PyQT_DOOM/user_settings/*.json
+include PyQt_DOOM/user_settings/*.json
 
-include PyQT_DOOM/*.png
-include PyQT_DOOM/*.ui
+include PyQt_DOOM/*.png
+include PyQt_DOOM/*.ui
