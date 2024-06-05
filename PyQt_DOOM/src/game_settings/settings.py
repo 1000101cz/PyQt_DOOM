@@ -3,9 +3,9 @@ import pathlib as pl
 import pygame as pg
 import random
 import json
+import os
 
-from loguru import logger
-from PyQt5 import QtCore, QtGui, uic
+from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog
 
@@ -28,7 +28,7 @@ def load_json(path: str | pl.Path) -> dict:
 
 
 class GameSettings:
-    def __init__(self, fpath: pl.Path = pl.Path(__file__).parent.parent.parent / 'user_settings' / 'settings.json'):
+    def __init__(self, fpath: pl.Path = pl.Path(os.getenv('LOCALAPPDATA')) / 'PyQt_DOOM' / 'settings.json'):
         self.original_pack = False
 
         self.volume_master = 1.0
@@ -53,11 +53,11 @@ class GameSettings:
                 'volume_weapon': self.volume_weapon
             }
 
-    def save(self, fpath: pl.Path = pl.Path(__file__).parent.parent.parent / 'user_settings' / 'settings.json'):
+    def save(self, fpath: pl.Path = pl.Path(os.getenv('LOCALAPPDATA')) / 'PyQt_DOOM' / 'settings.json'):
         the_dict = self.get_dict()
         save_json(the_dict, fpath)
 
-    def load(self, fpath: pl.Path = pl.Path(__file__).parent.parent.parent / 'user_settings' / 'settings.json'):
+    def load(self, fpath: pl.Path = pl.Path(os.getenv('LOCALAPPDATA')) / 'PyQt_DOOM' / 'settings.json'):
         the_dict = load_json(fpath)
         self.original_pack = the_dict['original_pack']
 
@@ -70,7 +70,7 @@ class GameSettings:
 
 class _SettingsDialog(QDialog, _help_dialog):
 
-    def __init__(self, fpath: pl.Path = pl.Path(__file__).parent.parent.parent / 'user_settings' / 'settings.json',
+    def __init__(self, fpath: pl.Path = pl.Path(os.getenv('LOCALAPPDATA')) / 'PyQt_DOOM' / 'settings.json',
                  parent=None):
         QDialog.__init__(self, parent, Qt.WindowSystemMenuHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint)
 

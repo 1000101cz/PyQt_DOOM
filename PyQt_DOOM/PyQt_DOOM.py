@@ -1,5 +1,6 @@
 import pathlib as pl
 import pygame as pg
+import os
 import sys
 import json
 
@@ -34,7 +35,7 @@ def load_json(path: str | pl.Path) -> dict:
 
 
 class SingleScore:
-    def __init__(self, a: pl.Path | int = 0, kill_list=[], name=None, folder=pl.Path(__file__).parent / 'scores'):
+    def __init__(self, a: pl.Path | int = 0, kill_list=[], name=None, folder=pl.Path(os.getenv('LOCALAPPDATA')) / 'PyQt_DOOM' / 'scores'):
         """
         :param a:           score (int) or path to existing score file
         :param kill_list:   list of killed enemies (strings)
@@ -48,7 +49,10 @@ class SingleScore:
             self.kill_list = the_dict['kill_list']
             self.fpath = a
         else:
-            assert folder.is_dir()
+            if not folder.parent.is_dir():
+                os.mkdir(folder.parent)
+            if not folder.is_dir():
+                os.mkdir(folder)
             self.score = a
             self.kill_list = kill_list
             self.name = name
@@ -70,8 +74,9 @@ class SingleScore:
 
 
 class AllScores:
-    def __init__(self, folder=pl.Path(__file__).parent / 'scores'):
-        assert folder.is_dir()
+    def __init__(self, folder=pl.Path(os.getenv('LOCALAPPDATA')) / 'PyQt_DOOM' / 'scores'):
+        if not folder.is_dir():
+            os.mkdir(folder)
 
         self._all = []
         from os import walk
@@ -237,6 +242,8 @@ class MainModule:
         while new_name in all_names:
             i += 1
             new_name = f"Game {i}"
+        if self.score == 0:
+            return
         score = SingleScore(a=self.score, kill_list=self.kill_list, name=new_name)
         score.save()
         self.all_scores.add(score)
