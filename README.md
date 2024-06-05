@@ -28,3 +28,15 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> import PyQt_DOOM
 >>> PyQt_DOOM.start()
 ```
+
+<h2>Screenshots</h2>
+
+![Alt text](screenshots/Screenshot1.png)
+
+![Alt text](screenshots/Screenshot2.png)
+
+![Alt text](screenshots/Screenshot3.png)
+
+![Alt text](screenshots/Screenshot4.png)
+
+![Alt text](screenshots/Screenshot5.png)

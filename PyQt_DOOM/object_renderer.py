@@ -1,5 +1,6 @@
 import pygame as pg
 import pathlib as pl
+from loguru import logger
 from PyQt_DOOM.settings import *
 
 
@@ -13,6 +14,7 @@ class ObjectRenderer:
         else:
             resources = 'resources_alt'
         self.sky_image = self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / 'sky.png'), (WIDTH, HALF_HEIGHT))
+        self.last_score = None
         self.sky_offset = 0
         self.blood_screen = self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / 'blood_screen.png'), RES)
         self.digit_size = 90
@@ -25,6 +27,7 @@ class ObjectRenderer:
         self.draw_background()
         self.render_game_objects()
         self.draw_player_health()
+        self.draw_score()
 
     def win(self):
         self.screen.blit(self.win_image, (0, 0))
@@ -37,6 +40,16 @@ class ObjectRenderer:
         for i, char in enumerate(health):
             self.screen.blit(self.digits[char], (i * self.digit_size, 0))
         self.screen.blit(self.digits['10'], ((i + 1) * self.digit_size, 0))
+
+    def draw_score(self):
+        score = str(self.game.get_score())
+        if self.last_score != score:
+            logger.info(f"Score is {score}")
+        for i, char in enumerate(score):
+            if self.last_score != score:
+                logger.debug(f"Char '{char}' no position ({WIDTH - (len(score) - i)*self.digit_size}, 0)")
+            self.screen.blit(self.digits[char], (WIDTH-(len(score) - i)*self.digit_size, 0))
+        self.last_score = score
 
     def player_damage(self):
         self.screen.blit(self.blood_screen, (0, 0))

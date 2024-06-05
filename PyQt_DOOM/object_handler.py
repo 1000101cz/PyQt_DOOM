@@ -75,7 +75,7 @@ class ObjectHandler:
             pg.display.flip()
             pg.time.delay(1500)
             self.game.score_plus("Level Finished")
-            self.game.new_game()
+            self.game.new_game(reset_score=False)
 
     def update(self):
         self.npc_positions = {npc.map_pos for npc in self.npc_list if npc.alive}

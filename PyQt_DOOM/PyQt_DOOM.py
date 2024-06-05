@@ -146,12 +146,13 @@ class AllScores:
 
 
 class Game:
-    def __init__(self, score_plus, score_reset, finished_fnc, settings):
+    def __init__(self, score_plus, score_reset, finished_fnc, get_score, settings):
         pg.init()
         pg.mouse.set_visible(False)
         self.score_plus = score_plus
         self.score_reset = score_reset
         self.finished_fnc = finished_fnc
+        self.get_score = get_score
         self.settings = settings
         self.map = None
         self.player = None
@@ -170,8 +171,9 @@ class Game:
         pg.time.set_timer(self.global_event, 40)
         self.new_game()
 
-    def new_game(self):
-        self.score_reset()
+    def new_game(self, reset_score=True):
+        if reset_score:
+            self.score_reset()
         self.map = Map(self)
         self.player = Player(self)
         self.object_renderer = ObjectRenderer(self)
@@ -221,10 +223,10 @@ class Game:
                 break
 
 
-def start_doom(finished_fnc, score_reset, score_plus):
+def start_doom(finished_fnc, score_reset, score_plus, get_score):
     score_reset()
     settings = GameSettings()
-    game = Game(score_plus, score_reset, finished_fnc, settings)
+    game = Game(score_plus, score_reset, finished_fnc, get_score, settings)
     game.run()
     finished_fnc()
 
@@ -232,7 +234,7 @@ def start_doom(finished_fnc, score_reset, score_plus):
 class MainModule:
     def __init__(self, widget) -> None:
         self.widget = widget
-        self.widget.pushButton_play.clicked.connect(lambda: start_doom(self._game_finished, self._score_reset, self._score_plus))
+        self.widget.pushButton_play.clicked.connect(lambda: start_doom(self._game_finished, self._score_reset, self._score_plus, self.get_score))
         self.widget.pushButton_settings.clicked.connect(lambda: open_settings(parent=self.widget))
 
         self.init_gui()
@@ -281,6 +283,9 @@ class MainModule:
         self.score = 0
         self.kill_list = []
         self.widget.label_last_score.setText(str(self.score))
+
+    def get_score(self):
+        return self.score
 
     def _update_gui(self):
         self.widget.tableWidget.setRowCount(0)
