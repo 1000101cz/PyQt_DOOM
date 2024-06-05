@@ -96,6 +96,8 @@ class AllScores:
                 logger.debug(e)
                 continue
 
+        logger.debug(f"{len(self._all)} scores found")
+
     def list(self) -> list[str]:
         if not len(self._all):
             return []
@@ -293,6 +295,7 @@ class MainModule:
         for score in sorted_list:
             row_position = self.widget.tableWidget.rowCount()
             gt = str(score.fpath.with_suffix('').name)
+            logger.debug(f"Adding score with fpath {score.fpath} to the table")
             game_time_text = f"{gt[:4]} {gt[4:6]} {gt[6:8]} - {gt[8:10]}:{gt[10:12]}"
             self.widget.tableWidget.insertRow(row_position)
             self.widget.tableWidget.setItem(row_position, 0, QTableWidgetItem(f"{score.score}"))
