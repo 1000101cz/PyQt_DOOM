@@ -75,6 +75,8 @@ class SingleScore:
 
 class AllScores:
     def __init__(self, folder=pl.Path(os.getenv('LOCALAPPDATA')) / 'PyQt_DOOM' / 'scores'):
+        if not folder.parent.is_dir:
+            os.mkdir(folder.parent)
         if not folder.is_dir():
             os.mkdir(folder)
 
