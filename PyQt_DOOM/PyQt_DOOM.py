@@ -101,6 +101,7 @@ class AllScores:
         names = []
         for score in self._all:
             if score.name in names:
+                logger.error(f"Found two scores with the same name! ({score.name})")
                 raise RuntimeError
             names.append(score.name)
         return names
@@ -113,15 +114,17 @@ class AllScores:
 
     def get(self, name: str) -> SingleScore:
         if not self._score_exists(name):
+            logger.error(f"Score {name} does not exist!")
             raise FileNotFoundError
         for score in self._all:
             if score.name == name:
                 return score
+        logger.error(f"Score {name} not found, but should exist!")
         raise FileNotFoundError
 
     def add(self, score: SingleScore) -> None:
         if score.name in self.list():
-            logger.error("This score already exists")
+            logger.error(f"Score {score.name} already exists!")
             raise RuntimeError
 
         self._all.append(score)
