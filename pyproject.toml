@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+
+[project]
+name = "PyQt_DOOM"
+version = "0.0.1"
+description = "PyQt settings and scoreboard for pygame implementation of Doom-like game."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {file = "LICENSE.txt"}
+keywords = ["Doom", "Python", "pygame", "PyQt", "Game"]
+authors = [
+    {name = "Stepan Marousek"}
+]
+classifiers = [
+    "Development Status :: 1",
+    "Programming Language :: Python"
+]
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[project.urls]
+repository = "https://github.com/1000101cz/PyQt_DOOM"
+
+[tool.setuptools.packages]
+find = {}
+
+[options.packages.find]

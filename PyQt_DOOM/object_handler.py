@@ -7,9 +7,15 @@ class ObjectHandler:
         self.game = game
         self.sprite_list = []
         self.npc_list = []
-        self.npc_sprite_path = str(pl.Path(__file__).parent / "resources" / "sprites" / 'npc')
-        self.static_sprite_path = str(pl.Path(__file__).parent / "resources" / "sprites" / "static_sprites")
-        self.anim_sprite_path = str(pl.Path(__file__).parent / 'resources'/'sprites'/'animated_sprites')
+
+        if self.game.settings.original_pack:
+            resources = 'resources'
+        else:
+            resources = 'resources_alt'
+
+        self.npc_sprite_path = str(pl.Path(__file__).parent / resources / "sprites" / 'npc')
+        self.static_sprite_path = str(pl.Path(__file__).parent / resources / "sprites" / "static_sprites")
+        self.anim_sprite_path = str(pl.Path(__file__).parent / resources /'sprites'/'animated_sprites')
         add_sprite = self.add_sprite
         add_npc = self.add_npc
         self.npc_positions = {}

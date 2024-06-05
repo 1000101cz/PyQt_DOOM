@@ -2,6 +2,8 @@ import pathlib as pl
 import pygame as pg
 import sys
 import json
+
+from PyQt5.QtGui import QPixmap
 from loguru import logger
 from datetime import datetime
 
@@ -17,6 +19,7 @@ from PyQt_DOOM.object_handler import ObjectHandler
 from PyQt_DOOM.weapon import Weapon
 from PyQt_DOOM.sound import Sound
 from PyQt_DOOM.pathfinding import PathFinding
+from PyQt_DOOM.src.game_settings.settings import GameSettings, open_settings
 
 
 def save_json(data: dict, path: str | pl.Path) -> None:
@@ -74,9 +77,15 @@ class AllScores:
         from os import walk
         files = next(walk(folder), (None, None, []))[2]
         for file in files:
-            fpath = folder / file
-            score = SingleScore(fpath)
-            self._all.append(score)
+            try:
+                if file == '.gitkeep':
+                    continue
+                fpath = folder / file
+                score = SingleScore(fpath)
+                self._all.append(score)
+            except Exception as e:
+                logger.debug(e)
+                continue
 
     def list(self) -> list[str]:
         if not len(self._all):
@@ -122,12 +131,13 @@ class AllScores:
 
 
 class Game:
-    def __init__(self, score_plus, score_reset, finished_fnc):
+    def __init__(self, score_plus, score_reset, finished_fnc, settings):
         pg.init()
         pg.mouse.set_visible(False)
         self.score_plus = score_plus
         self.score_reset = score_reset
         self.finished_fnc = finished_fnc
+        self.settings = settings
         self.map = None
         self.player = None
         self.object_renderer = None
@@ -153,7 +163,7 @@ class Game:
         self.raycasting = RayCasting(self)
         self.object_handler = ObjectHandler(self)
         self.weapon = Weapon(self)
-        self.sound = Sound(self)
+        self.sound = Sound(self, self.settings)
         self.pathfinding = PathFinding(self)
         pg.mixer.music.play(-1)
 
@@ -198,7 +208,8 @@ class Game:
 
 def start_doom(finished_fnc, score_reset, score_plus):
     score_reset()
-    game = Game(score_plus, score_reset, finished_fnc)
+    settings = GameSettings()
+    game = Game(score_plus, score_reset, finished_fnc, settings)
     game.run()
     finished_fnc()
 
@@ -207,6 +218,9 @@ class MainModule:
     def __init__(self, widget) -> None:
         self.widget = widget
         self.widget.pushButton_play.clicked.connect(lambda: start_doom(self._game_finished, self._score_reset, self._score_plus))
+        self.widget.pushButton_settings.clicked.connect(lambda: open_settings(parent=self.widget))
+
+        self.init_gui()
 
         self.all_scores = AllScores()
 
@@ -268,6 +282,20 @@ class MainModule:
             self.widget.tableWidget.insertRow(row_position)
             self.widget.tableWidget.setItem(row_position, 0, QTableWidgetItem(f"{score.score}"))
             self.widget.tableWidget.setItem(row_position, 1, QTableWidgetItem(game_time_text))
+
+    def init_gui(self):
+        pixmap = QPixmap(str(pl.Path(__file__).parent / 'logo_menu.png'))
+        self.widget.label_logo.setPixmap(pixmap)
+
+        style = """
+QHeaderView::section {
+    background-color: #602023;
+    color: black;
+    border-style: none;
+}
+"""
+        self.widget.tableWidget.horizontalHeader().setStyleSheet(style)
+        self.widget.tableWidget.verticalHeader().setStyleSheet(style)
 
 
 class Main(QMainWindow):

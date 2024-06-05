@@ -8,6 +8,9 @@ from collections import deque
 class SpriteObject:
     def __init__(self, game, path=str(pl.Path(__file__).parent / 'resources' / 'sprites' / 'static_sprites' / 'candlebra.png'),
                  pos=(10.5, 3.5), scale=0.7, shift=0.27):
+        if not game.settings.original_pack and path == str(pl.Path(__file__).parent / 'resources' / 'sprites' / 'static_sprites' / 'candlebra.png'):
+            path = str(pl.Path(__file__).parent / 'resources_alt' / 'sprites' / 'static_sprites' / 'candlebra.png')
+
         self.game = game
         self.player = game.player
         self.x, self.y = pos
@@ -57,6 +60,9 @@ class SpriteObject:
 class AnimatedSprite(SpriteObject):
     def __init__(self, game, path=str(pl.Path(__file__).parent / 'resources' / 'sprites' / 'animated_sprites' / 'green_light' / '0.png'),
                  pos=(11.5, 3.5), scale=0.8, shift=0.16, animation_time=120, enemy_type=''):
+        if not game.settings.original_pack and path == str(pl.Path(__file__).parent / 'resources' / 'sprites' / 'animated_sprites' / 'green_light' / '0.png'):
+            path = str(pl.Path(__file__).parent / 'resources_alt' / 'sprites' / 'animated_sprites' / 'green_light' / '0.png')
+
         super().__init__(game, path, pos, scale, shift)
         self.enemy_type = enemy_type
         self.animation_time = animation_time

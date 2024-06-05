@@ -8,14 +8,18 @@ class ObjectRenderer:
         self.game = game
         self.screen = game.screen
         self.wall_textures = self.load_wall_textures()
-        self.sky_image = self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / 'sky.png'), (WIDTH, HALF_HEIGHT))
+        if self.game.settings.original_pack:
+            resources = 'resources'
+        else:
+            resources = 'resources_alt'
+        self.sky_image = self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / 'sky.png'), (WIDTH, HALF_HEIGHT))
         self.sky_offset = 0
-        self.blood_screen = self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / 'blood_screen.png'), RES)
+        self.blood_screen = self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / 'blood_screen.png'), RES)
         self.digit_size = 90
-        self.digit_images = [self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / 'digits' / f'{i}.png'), [self.digit_size] * 2) for i in range(11)]
+        self.digit_images = [self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / 'digits' / f'{i}.png'), [self.digit_size] * 2) for i in range(11)]
         self.digits = dict(zip(map(str, range(11)), self.digit_images))
-        self.game_over_image = self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / 'game_over.png'), RES)
-        self.win_image = self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / 'win.png'), RES)
+        self.game_over_image = self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / 'game_over.png'), RES)
+        self.win_image = self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / 'win.png'), RES)
 
     def draw(self):
         self.draw_background()
@@ -56,11 +60,15 @@ class ObjectRenderer:
 
     def load_wall_textures(self):
         import pathlib as pl
+        if self.game.settings.original_pack:
+            resources = 'resources'
+        else:
+            resources = 'resources_alt'
         return {
-            1: self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / '1.png')),
-            2: self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / '2.png')),
-            3: self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / '3.png')),
-            4: self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / '4.png')),
-            5: self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / '5.png')),
-            6: self.get_texture(str(pl.Path(__file__).parent / 'resources' / 'textures' / '6.png')),
+            1: self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / '1.png')),
+            2: self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / '2.png')),
+            3: self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / '3.png')),
+            4: self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / '4.png')),
+            5: self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / '5.png')),
+            6: self.get_texture(str(pl.Path(__file__).parent / resources / 'textures' / '6.png')),
         }

@@ -1,5 +1,4 @@
 loguru
 numpy
-opencv-python
 pygame
 PyQt5
