@@ -80,8 +80,6 @@ class _SettingsDialog(QDialog, _help_dialog):
 
         self.settings = GameSettings(fpath)
 
-        self._fill_gui()
-
         self.pushButton_music.clicked.connect(self._test_sound_music)
         self.pushButton_enemies.clicked.connect(self._test_sound_enemies)
         self.pushButton_player.clicked.connect(self._test_sound_player)
@@ -97,6 +95,8 @@ class _SettingsDialog(QDialog, _help_dialog):
         self.pushButton_cancel.clicked.connect(self._cancel_clicked)
 
         self.tabWidget.setCurrentIndex(0)
+
+        self._fill_gui()
 
     def _fill_gui(self):
         self.checkBox_original.setChecked(self.settings.original_pack)
