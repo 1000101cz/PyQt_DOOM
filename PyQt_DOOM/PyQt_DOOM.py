@@ -80,6 +80,8 @@ class AllScores:
         if not folder.is_dir():
             os.mkdir(folder)
 
+        logger.debug(f"AllScores folder: {folder}")
+
         self._all = []
         from os import walk
         files = next(walk(folder), (None, None, []))[2]
@@ -102,6 +104,7 @@ class AllScores:
         for score in self._all:
             if score.name in names:
                 logger.error(f"Found two scores with the same name! ({score.name})")
+                logger.debug(f"self._all length: {len(self._all)}")
                 raise RuntimeError
             names.append(score.name)
         return names
