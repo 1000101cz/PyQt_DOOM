@@ -29,5 +29,11 @@ class Sound:
         self.player_pain = pg.mixer.Sound(str(pl.Path(self.path) / 'player_pain.wav'))
         self.player_pain.set_volume(settings.volume_player * settings.volume_master)
 
+        self.victory = pg.mixer.Sound(str(pl.Path(self.path) / 'victory.wav'))
+        self.victory.set_volume(settings.volume_master)
+
+        self.lose = pg.mixer.Sound(str(pl.Path(self.path) / 'lose.wav'))
+        self.lose.set_volume(settings.volume_master)
+
         self.theme = pg.mixer.music.load(str(pl.Path(self.path) / 'theme.mp3'))
         pg.mixer.music.set_volume(0.3 * settings.volume_music * settings.volume_master)
