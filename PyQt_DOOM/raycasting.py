@@ -1,6 +1,5 @@
 import pygame as pg
 import math
-from PyQt_DOOM.settings import *
 
 
 class RayCasting:
@@ -11,35 +10,37 @@ class RayCasting:
         self.textures = self.game.object_renderer.wall_textures
 
     def get_objects_to_render(self):
+        s = self.game.settings
         self.objects_to_render = []
         for ray, values in enumerate(self.ray_casting_result):
             depth, proj_height, texture, offset = values
 
-            if proj_height < HEIGHT:
+            if proj_height < s.resolution[1]:
                 wall_column = self.textures[texture].subsurface(
-                    offset * (TEXTURE_SIZE - SCALE), 0, SCALE, TEXTURE_SIZE
+                    offset * (s.TEXTURE_SIZE - s.SCALE), 0, s.SCALE, s.TEXTURE_SIZE
                 )
-                wall_column = pg.transform.scale(wall_column, (SCALE, proj_height))
-                wall_pos = (ray * SCALE, HALF_HEIGHT - proj_height // 2)
+                wall_column = pg.transform.scale(wall_column, (s.SCALE, proj_height))
+                wall_pos = (ray * s.SCALE, s.HALF_HEIGHT - proj_height // 2)
             else:
-                texture_height = TEXTURE_SIZE * HEIGHT / proj_height
+                texture_height = s.TEXTURE_SIZE * s.resolution[1] / proj_height
                 wall_column = self.textures[texture].subsurface(
-                    offset * (TEXTURE_SIZE - SCALE), HALF_TEXTURE_SIZE - texture_height // 2,
-                    SCALE, texture_height
+                    offset * (s.TEXTURE_SIZE - s.SCALE), s.HALF_TEXTURE_SIZE - texture_height // 2,
+                    s.SCALE, texture_height
                 )
-                wall_column = pg.transform.scale(wall_column, (SCALE, HEIGHT))
-                wall_pos = (ray * SCALE, 0)
+                wall_column = pg.transform.scale(wall_column, (s.SCALE, s.resolution[1]))
+                wall_pos = (ray * s.SCALE, 0)
 
             self.objects_to_render.append((depth, wall_column, wall_pos))
 
     def ray_cast(self):
+        s = self.game.settings
         self.ray_casting_result = []
         texture_vert, texture_hor = 1, 1
         ox, oy = self.game.player.pos
         x_map, y_map = self.game.player.map_pos
 
-        ray_angle = self.game.player.angle - HALF_FOV + 0.0001
-        for ray in range(NUM_RAYS):
+        ray_angle = self.game.player.angle - s.HALF_FOV + 0.0001
+        for ray in range(s.NUM_RAYS):
             sin_a = math.sin(ray_angle)
             cos_a = math.cos(ray_angle)
 
@@ -52,7 +53,7 @@ class RayCasting:
             delta_depth = dy / sin_a
             dx = delta_depth * cos_a
 
-            for i in range(MAX_DEPTH):
+            for i in range(s.MAX_DEPTH):
                 tile_hor = int(x_hor), int(y_hor)
                 if tile_hor in self.game.map.world_map:
                     texture_hor = self.game.map.world_map[tile_hor]
@@ -70,7 +71,7 @@ class RayCasting:
             delta_depth = dx / cos_a
             dy = delta_depth * sin_a
 
-            for i in range(MAX_DEPTH):
+            for i in range(s.MAX_DEPTH):
                 tile_vert = int(x_vert), int(y_vert)
                 if tile_vert in self.game.map.world_map:
                     texture_vert = self.game.map.world_map[tile_vert]
@@ -93,12 +94,12 @@ class RayCasting:
             depth *= math.cos(self.game.player.angle - ray_angle)
 
             # projection
-            proj_height = SCREEN_DIST / (depth + 0.0001)
+            proj_height = s.SCREEN_DIST / (depth + 0.0001)
 
             # ray casting result
             self.ray_casting_result.append((depth, proj_height, texture, offset))
 
-            ray_angle += DELTA_ANGLE
+            ray_angle += s.DELTA_ANGLE
 
     def update(self):
         self.ray_cast()

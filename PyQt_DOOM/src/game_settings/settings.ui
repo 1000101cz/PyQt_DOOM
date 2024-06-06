@@ -60,6 +60,13 @@ QTabWidget::pane {
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QCheckBox" name="checkBox_original">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="text">
           <string>Original textures and sounds</string>
          </property>
@@ -104,6 +111,7 @@ QTabWidget::pane {
            <widget class="QLabel" name="label">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -128,6 +136,13 @@ QTabWidget::pane {
           </item>
           <item>
            <widget class="QLabel" name="label_master">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="text">
              <string>100</string>
             </property>
@@ -150,6 +165,7 @@ QTabWidget::pane {
            <widget class="QLabel" name="label_2">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -176,6 +192,7 @@ QTabWidget::pane {
            <widget class="QLabel" name="label_music">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -192,6 +209,7 @@ QTabWidget::pane {
            <widget class="QPushButton" name="pushButton_music">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -211,6 +229,7 @@ QTabWidget::pane {
            <widget class="QLabel" name="label_3">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -237,6 +256,7 @@ QTabWidget::pane {
            <widget class="QLabel" name="label_enemies">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -253,6 +273,7 @@ QTabWidget::pane {
            <widget class="QPushButton" name="pushButton_enemies">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -272,6 +293,7 @@ QTabWidget::pane {
            <widget class="QLabel" name="label_7">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -298,6 +320,7 @@ QTabWidget::pane {
            <widget class="QLabel" name="label_player">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -314,6 +337,7 @@ QTabWidget::pane {
            <widget class="QPushButton" name="pushButton_player">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -333,6 +357,7 @@ QTabWidget::pane {
            <widget class="QLabel" name="label_9">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -359,6 +384,7 @@ QTabWidget::pane {
            <widget class="QLabel" name="label_weapon">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -378,6 +404,7 @@ QTabWidget::pane {
            <widget class="QPushButton" name="pushButton_weapon">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -411,10 +438,200 @@ QTabWidget::pane {
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QCheckBox" name="checkBox_fullscreen">
-         <property name="text">
-          <string>Full screen</string>
-         </property>
+        <widget class="QWidget" name="widget_7" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Resolution</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>509</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_resolution">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContents</enum>
+            </property>
+            <item>
+             <property name="text">
+              <string>1280x720</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>1600x900</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>1920x1080</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>1920x1200</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>2560x1440</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_9" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Fullscreen</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_fullscreen">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="tristate">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_8" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>FPS Limit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>444</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_fps_limit">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContents</enum>
+            </property>
+            <item>
+             <property name="text">
+              <string>Unlimited</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>59Hz</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>60Hz</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>120Hz</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>144Hz</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
@@ -454,6 +671,7 @@ QTabWidget::pane {
        <widget class="QPushButton" name="pushButton_cancel">
         <property name="font">
          <font>
+          <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
@@ -472,6 +690,7 @@ QTabWidget::pane {
        <widget class="QPushButton" name="pushButton_use">
         <property name="font">
          <font>
+          <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>

@@ -72,6 +72,7 @@ class NPC(AnimatedSprite):
             self.pain = False
 
     def check_hit_in_npc(self):
+        HALF_WIDTH = self.game.settings.HALF_WIDTH
         if self.ray_cast_value and self.game.player.shot:
             if HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
                 if self.enemy_type == 'Soldier':
@@ -143,6 +144,8 @@ class NPC(AnimatedSprite):
 
         delta_depth = dy / sin_a
         dx = delta_depth * cos_a
+
+        MAX_DEPTH = self.game.settings.MAX_DEPTH
 
         for i in range(MAX_DEPTH):
             tile_hor = int(x_hor), int(y_hor)

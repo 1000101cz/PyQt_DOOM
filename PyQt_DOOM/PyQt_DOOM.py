@@ -11,7 +11,6 @@ from datetime import datetime
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtWidgets import QMainWindow, QWidget, QTableWidgetItem
 
-from PyQt_DOOM.settings import RES, FPS
 from PyQt_DOOM.map import Map
 from PyQt_DOOM.player import Player
 from PyQt_DOOM.raycasting import RayCasting
@@ -170,9 +169,9 @@ class Game:
         self.sound = None
         self.pathfinding = None
         if settings.fullscreen:
-            self.screen = pg.display.set_mode(RES, pg.FULLSCREEN)
+            self.screen = pg.display.set_mode(settings.resolution, pg.FULLSCREEN)
         else:
-            self.screen = pg.display.set_mode(RES)
+            self.screen = pg.display.set_mode(settings.resolution)
         pg.event.set_grab(True)
         self.clock = pg.time.Clock()
         self.delta_time = 1
@@ -200,7 +199,7 @@ class Game:
         self.object_handler.update()
         self.weapon.update()
         pg.display.flip()
-        self.delta_time = self.clock.tick(FPS)
+        self.delta_time = self.clock.tick(self.settings.fps_limit)
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
     def draw(self):
